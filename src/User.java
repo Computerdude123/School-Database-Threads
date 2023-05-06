@@ -13,8 +13,8 @@ class User {
 
 class Student extends User implements Runnable{
     private int grade;
-    private float average;
-    public Student(String name, int grade, float average) {
+    private double average;
+    public Student(String name, int grade, double average) {
         super(name);
         this.grade = grade;
         this.average = average;
@@ -22,7 +22,7 @@ class Student extends User implements Runnable{
     public int getGrade(){
         return grade;
     }
-    public float getAverage() {
+    public double getAverage() {
         return average;
     }
     private LinkedList<Student> students = new LinkedList<>();
@@ -30,9 +30,12 @@ class Student extends User implements Runnable{
     public LinkedList<Student> getStudents() {
         return students;
     }
+    public void addStudents(LinkedList<Student>s){
+        students = (LinkedList<Student>) s.clone();
+    }
     public void run(){
         for (int i = 0; i < students.size(); i++) {
-            System.out.println(students.get(i));
+            System.out.println("Name: " + students.get(i).getName() + "Grade: " + students.get(i).getGrade() + "Average: " + students.get(i).getAverage());
             try{
                 Thread.sleep(5);
             } catch (InterruptedException e) {
@@ -43,8 +46,8 @@ class Student extends User implements Runnable{
 }
 class Teacher extends User implements Runnable{
     private String subject;
-    private float salary;
-    public Teacher(String name, String subject, float salary){
+    private double salary;
+    public Teacher(String name, String subject, double salary){
         super(name);
         this.subject = subject;
         this.salary = salary;
@@ -54,7 +57,7 @@ class Teacher extends User implements Runnable{
         return subject;
     }
 
-    public float getSalary() {
+    public double getSalary() {
         return salary;
     }
     private LinkedList<Teacher> teachers = new LinkedList<>();
@@ -62,11 +65,14 @@ class Teacher extends User implements Runnable{
     public LinkedList<Teacher> getTeachers() {
         return teachers;
     }
+    public void addTeachers(LinkedList<Teacher> t){
+        teachers = (LinkedList<Teacher>) t.clone();
+    }
 
     @Override
     public void run() {
         for (int i = 0; i < teachers.size(); i++) {
-            System.out.println(teachers.get(i));
+            System.out.println("Name: " + teachers.get(i).getName() + "Subject: " + teachers.get(i).getSubject() + "Salary: " + teachers.get(i).getSalary());
             try{
                 Thread.sleep(5);
             } catch (InterruptedException e) {
